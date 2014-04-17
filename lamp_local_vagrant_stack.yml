@@ -1,0 +1,22 @@
+---
+- hosts: all
+  sudo: True
+  #extra_vars:
+  
+  tasks:
+  
+    #pre-install tasks
+    - name: "Pre-install | update apt package list"
+      apt: update_cache=yes cache_valid_time=3600
+      tags: preinstall
+    
+    # Set up environment
+    - include: roles/common/tasks/core-cli-tools.yml
+    - include: roles/common/tasks/git.yml
+    - include: roles/common/tasks/php5.yml
+    - include: roles/common/tasks/drush.yml
+    - include: roles/common/tasks/php_qa.yml
+    - include: roles/common/tasks/mysql.yml
+    - include: roles/common/tasks/nodejs.yml
+    - include: roles/common/tasks/nodejs_qa.yml
+    - include: roles/common/tasks/apache_httpd.yml

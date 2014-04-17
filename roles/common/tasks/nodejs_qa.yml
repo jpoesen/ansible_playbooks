@@ -1,0 +1,27 @@
+---
+##
+# npm based QA / test tools
+#
+- name: npm | install JSHint
+  npm: name=jshint global=yes
+  tags: npm  
+
+- name: npm | install phantomjs
+  npm: name=phantomjs global=yes
+  tags: npm  
+
+- name: npm | install casperjs
+  npm: name=casperjs global=yes
+  tags: npm  
+
+- name: npm | install mocha
+  npm: name=mocha global=yes
+  tags: npm       
+
+- name: npm | install chai
+  npm: name=chai global=yes
+  tags: npm   
+
+- name: npm | install superagent
+  npm: name=superagent global=yes
+  tags: npm   

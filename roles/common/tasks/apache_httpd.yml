@@ -1,0 +1,13 @@
+---
+##
+# Apache2 setup.
+#
+
+- name: Apache | Install Apache2
+  action: apt pkg=apache2 state=installed
+
+- name: Apache | Enable mod_rewrite
+  action: command a2enmod rewrite
+
+- name: Apache | Disable default vhost
+  action: command a2dissite default

@@ -1,0 +1,20 @@
+---
+##
+# Often used CLI tools.
+#
+
+- name: Core CLI Tools | Install wget
+  action: apt pkg=wget state=installed
+  tags: CLI
+
+- name: Core CLI Tools | Install curl
+  action: apt pkg=curl state=installed
+  tags: CLI
+
+- name: Core CLI Tools | Install unzip
+  action: apt pkg=unzip state=installed
+  tags: CLI
+
+- name: Core CLI Tools | Install htop
+  action: apt pkg=htop state=installed
+  tags: CLI

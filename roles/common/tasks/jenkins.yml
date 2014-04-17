@@ -1,0 +1,36 @@
+---
+##
+# Jenkins setup.
+#
+- name: Preparation | install pycurl
+  apt: pkg=python-pycurl state=latest
+
+- name: Preparation | install curl
+  apt: pkg=curl state=latest
+
+- name: Preparation | install git-core
+  apt: pkg=git-core state=latest
+
+- name: Jenkins | download and add the jenkins-ci.org apt key
+  apt_key: url=http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key state=present
+
+- name: Jenkins | add jenkins-ci debian repo to apt sources (+ apt-get update)
+  apt_repository: repo='deb http://pkg.jenkins-ci.org/debian binary/' state=present
+
+- name: Jenkins | install Jenkins
+  apt: pkg=jenkins state=latest
+
+- name: "Jenkins | Create Jenkins CLI destination directory: /opt/jenkins"
+  action: file path='/opt/jenkins' state=directory
+
+- name: Jenkins | Retrieve Jenkins CLI jar
+  action: get_url url=http://localhost:8080/jnlpJars/jenkins-cli.jar dest='/opt/jenkins' mode=0440
+
+- name: Jenkins | Get Jenkins updates
+  action: get_url url=http://updates.jenkins-ci.org/update-center.json dest='/opt/jenkins/updates_jenkins.json' thirsty=yes mode=0440
+
+- name: Jenkins | Update-center Jenkins
+  action: "shell cat /opt/jenkins/updates_jenkins.json | sed '1d;$d' | curl -X POST -H 'Accept: application/json' -d @- http://localhost:8080/updateCenter/byId/default/postBack"
+
+- name: Jenkins | Install Git plugin
+  action: command java -jar /opt/jenkins/jenkins-cli.jar -s http://localhost:8080 install-plugin git

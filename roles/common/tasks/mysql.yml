@@ -1,0 +1,22 @@
+---
+##
+# MySQL.
+#
+
+- name: MySQL | Install mysql-server
+  action: apt pkg=mysql-server state=installed
+  tags: mysql
+
+- name: MySQL | Install mysql-client
+  action: apt pkg=mysql-client state=installed
+  tags: mysql
+
+# Needed for Drupal
+- name: MySQL | Install php5-mysql
+  action: apt pkg=php5-mysql state=installed
+  tags: mysql
+
+# Needed to allow Ansible to perform DB actions on remote host  
+- name: MySQL | Install python-mysqldb
+  action: apt pkg=python-mysqldb state=installed
+  tags: mysql

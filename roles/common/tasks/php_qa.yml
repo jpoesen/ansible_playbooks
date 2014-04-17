@@ -1,0 +1,28 @@
+---
+##
+# PHP QA - Static Analysis tools.
+#
+
+# TODO: can we use composer instead of PEAR?
+- name: PHP Analysis Tools | Set PEAR autodiscover
+  action: command pear config-set auto_discover 1
+  tags: PHPQA
+
+# TODO: can we use composer instead of PEAR?
+- name: PHP Analysis Tools | Install PHP_Codesniffer
+  action: command pear install PHP_CodeSniffer creates=/usr/bin/phpcs
+  tags: PHPQA
+
+# TODO: put this under ~/build (vagrant home) rather than /var/build
+- name: "PHP Analysis Tools | Create build tools destination directory: /var/build/tools"
+  action: file path='/var/build/tools' state=directory mode=0777
+  tags: PHPQA
+
+# TODO: use different metod to fetch coder module.
+- name: PHP Analysis Tools | Fetch coder.module
+  git: repo='http://git.drupal.org/project/coder.git' dest=/var/build/tools/coder version=7.x-2.x
+  tags: PHPQA
+
+- name: PHP Analysis Tools | Link phpcs to coder.module
+  action: command phpcs --config-set installed_paths /var/build/tools/coder/coder_sniffer
+  tags: PHPQA

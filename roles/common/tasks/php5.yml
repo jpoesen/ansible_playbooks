@@ -1,0 +1,34 @@
+---
+##
+# PHP and friends.
+#
+
+- name: PHP | Install php5
+  action: apt pkg=php5 state=installed
+  tags: PHP
+
+- name: PHP | Install php5-cli
+  action: apt pkg=php5-cli state=installed
+  tags: PHP
+
+- name: PHP | Install php5-curl
+  action: apt pkg=php5-curl state=installed
+  tags: PHP
+
+- name: PHP | Install php-apc
+  action: apt pkg=php-apc state=installed
+  tags: PHP
+
+- name: PHP | Install php5-memcache
+  action: apt pkg=php5-memcache state=installed
+  tags: PHP
+
+- name: PHP | Install php5-gd
+  action: apt pkg=php5-gd state=installed
+  tags: PHP
+
+# TODO: remove PEAR once we use composer for all php dependencies
+- name: PHP | Install php-pear
+  action: apt pkg=php-pear state=installed
+  tags: PHP
+

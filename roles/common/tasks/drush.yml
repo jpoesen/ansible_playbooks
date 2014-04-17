@@ -1,0 +1,21 @@
+---
+##
+# Drush setup.
+#
+# TODO: look into installing drush with composer / manually instead of PEAR
+#
+- name: Drush | Update PEAR
+  action: command pear upgrade-all
+  tags: drush
+
+- name: Drush | Setup PEAR channel
+  action: command pear channel-discover pear.drush.org creates=/usr/share/php/.channels/pear.drush.org.reg
+  tags: drush
+
+- name: Drush | Install drush
+  action: command pear install drush/drush creates=/usr/bin/drush
+  tags: drush
+
+- name: Drush | Run drush once so it downloads its dependencies
+  action: command drush
+  tags: drush

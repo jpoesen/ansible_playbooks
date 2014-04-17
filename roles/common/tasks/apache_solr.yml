@@ -1,0 +1,20 @@
+---
+##
+# Apache Solr setup.
+#
+
+- name: Apache Solr | Download Solr 3.6.2
+  action: get_url url=http://archive.apache.org/dist/lucene/solr/3.6.2/apache-solr-3.6.2.tgz dest=/opt/apache-solr-3.6.2.tgz
+
+- name: Apache Solr | Unpack Solr
+  unarchive: src=/opt/apache-solr-3.6.2.tgz dest=/opt/apache-solr-3.6.2
+
+- name: Apache Solr | Change /opt/apache-solr-3.6.2 permissions
+  file: path=/opt/apache-solr-3.6.2 mode=0777
+
+# TODO: check permissions. Needs: g+rw
+- name: Apache Solr | Create /var/lib/solr/data
+  file: path=/var/lib/solr/data state=directory owner=tomcat6 group=tomcat6 recurse=yes mode=0755
+
+- name: Apache Solr | Start tomcat6 service
+  service: name=tomcat6 state=started
